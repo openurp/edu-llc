@@ -25,6 +25,8 @@ import org.openurp.edu.llc.web.action.admin.TutorialActivityAction
 import org.openurp.edu.llc.web.action.admin.TutorialSwitchAction
 import org.openurp.edu.llc.web.action.student.ActivityReservationAction
 import org.openurp.edu.llc.web.action.student.LectureReservationAction
+import org.openurp.edu.llc.web.action.teacher.TeacherLectureAction
+import org.openurp.edu.llc.web.action.teacher.TeacherTutorialAction
 
 class DefaultModule extends BindModule {
 
@@ -32,5 +34,7 @@ class DefaultModule extends BindModule {
     bind(classOf[LectureAction],classOf[TutorialActivityAction],classOf[TutorialSwitchAction],classOf[TutoredStdAction])
 
     bind(classOf[LectureReservationAction],classOf[ActivityReservationAction])
+    
+    bind(classOf[TeacherLectureAction],classOf[TeacherTutorialAction])
   }
 }

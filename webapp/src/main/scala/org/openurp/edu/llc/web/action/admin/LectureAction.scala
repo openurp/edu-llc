@@ -33,6 +33,7 @@ import org.openurp.base.model.Department
 import org.openurp.edu.base.model.Classroom
 import org.openurp.edu.base.model.Project
 import org.openurp.edu.base.model.Semester
+import org.openurp.edu.base.model.Teacher
 
 class LectureAction extends RestfulAction[Lecture] {
 
@@ -90,6 +91,27 @@ class LectureAction extends RestfulAction[Lecture] {
     val rooms = entityDao.search(query)
     put("rooms", entityDao.search(query))
     put("pageLimit", pageLimit)
+    forward()
+  }
+
+  def teacher(): View = {
+    val codeOrName = get("term").orNull
+    val query = OqlBuilder.from(classOf[Teacher], "teacher")
+    query.where("teacher.project.id=:projectId", getInt("project").get)
+    populateConditions(query);
+
+    if (Strings.isNotEmpty(codeOrName)) {
+      query.where("(teacher.user.name like :name or teacher.user.code like :code)", '%' + codeOrName + '%',
+        '%' + codeOrName + '%');
+    }
+    val now = LocalDate.now
+    query.where(":now1 >= teacher.beginOn and (teacher.endOn is null or :now2 <= teacher.endOn)", now, now)
+      .orderBy("teacher.user.name")
+    val pageLimit = getPageLimit
+    query.limit(pageLimit);
+    val a = entityDao.search(query)
+    put("teachers", entityDao.search(query));
+    put("pageLimit", pageLimit);
     forward()
   }
 

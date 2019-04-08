@@ -17,7 +17,11 @@
       </select>
     [/@]
     [@b.textfield name="lecture.location" label="地点" value="${lecture.location!}" maxlength="100" style="width:200px;"/]
-    [@b.textfield name="lecture.teachers" label="组织教师" value="${lecture.teachers!}" required="true" maxlength="500" style="width:200px;"/]
+    [@b.field label="组织教师"]
+      <select id="teacherId" name="lecture.teacher.id" style="width:200px;">
+        <option value='${(lecture.teacher.id)!}' selected>${(lecture.teacher.user.name)!}</option>
+      </select>
+    [/@]
     [@b.textfield name="lecture.capacity" label="最大容量" value="${lecture.capacity!}" required="true" maxlength="20" style="width:200px;"/]
     [@b.formfoot]
       [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit"/]
@@ -41,5 +45,20 @@
     },
     {width:"400px"}
   );
+  jQuery("#teacherId").ajaxChosen(
+	        {
+	            method: 'GET',
+	            url:  "${b.url('!teacher?pageNo=1&pageSize=10')}"
+	        }
+	        , function (data) {
+	            var items = {};
+	            var dataObj = eval("(" + data + ")");
+	            jQuery.each(dataObj.teachers, function (i, teacher) {
+	                items[teacher.id] = teacher.name + "(" + teacher.code + ")";
+	            });
+	            return items;
+	        },
+	        {width:"400px"}
+	      );
 </script>
 [@b.foot/]

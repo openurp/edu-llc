@@ -27,6 +27,7 @@ import org.beangle.commons.lang.time.HourMinute
 import org.beangle.data.model.LongId
 import org.openurp.base.model.Department
 import org.openurp.edu.base.model.{ Classroom, Project, Semester }
+import org.openurp.edu.base.model.Teacher
 
 /**
  * 讲座、报告、活动
@@ -39,7 +40,7 @@ class Lecture extends LongId {
 
   var subject: String = _
 
-  var teachers: String = _
+  var teacher: Teacher = _
 
   var depart: Department = _
 

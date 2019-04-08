@@ -1,12 +1,6 @@
 [#ftl]
 [@b.head/]
 [@b.grid items=lectures var="lecture"]
-  [@b.gridbar]
-    bar.addItem("${b.text("action.new")}",action.add());
-    bar.addItem("${b.text("action.modify")}",action.edit());
-    bar.addItem("${b.text("action.delete")}",action.remove("确认删除?"));
-    bar.addItem("${b.text("action.export")}",action.exportData("subject:活动名称（类别）,teacher.user.name:教师,depart.name:开课院系,date:日期,beginAt:开始时间,endAt:结束时间,room.name:教室,location:地点,capacity:最大容量,actual:实际人数",null,'fileName=课堂活动信息'));
-  [/@]
   [@b.row]
     [@b.boxcol /]
     [@b.col width="10%" property="date" title="日期"]${(lecture.date?string('yyyy-MM-dd'))?default('')}[/@]

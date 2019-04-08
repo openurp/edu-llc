@@ -6,10 +6,9 @@
     <td class="index_view" >
     [@b.form name="lectureSearchForm" action="!search" target="lecturelist" title="ui.searchForm" theme="search"]
       [@b.textfield name="lecture.subject" label="名称"/]
-      [@b.textfield name="lecture.teachers" label="教师"/]
+      [@b.textfield name="lecture.teacher.user.name" label="教师"/]
       [@b.textfield name="lecture.location" label="地点"/]
-      [@b.datepicker label="日期" id="lecture.date" name="lecture.date"
-      value="${(lecture.date?string('yyyy-MM-dd'))?default('')}" format="yyyy-MM-dd" /]
+      [@b.datepicker label="日期" name="lecture.date" format="yyyy-MM-dd" /]
       [@b.select label="学年学期" name="lecture.semester.id" items={}]
         <option value="">...</option>
         [#list semesters?sort_by("code")?reverse as semester]

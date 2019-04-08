@@ -6,13 +6,14 @@
     bar.addItem("${b.text("action.modify")}",action.edit());
     bar.addItem("${b.text("action.delete")}",action.remove("确认删除?"));
     bar.addItem("复制",'copy()');
+    bar.addItem("${b.text("action.export")}",action.exportData("subject:活动名称,teacher.user.name:教师,date:日期,beginAt:开始时间,endAt:结束时间,location:地点,capacity:最大容量",null,'fileName=辅导活动信息'));
   [/@]
   [@b.row]
     [@b.boxcol /]
     [@b.col width="10%" property="date" title="日期"]${(tutorialActivity.date?string('yyyy-MM-dd'))?default('')}[/@]
     [@b.col width="15%" title="时间"]${tutorialActivity.beginAt! }-${tutorialActivity.endAt }[/@]
-    [@b.col width="15%" property="subject" title="活动名称（类别）"/]
-    [@b.col width="10%" property="teacher.user.name" title="组织教师"/]
+    [@b.col width="15%" property="subject" title="活动名称"/]
+    [@b.col width="10%" property="teacher.user.name" title="指导教师"/]
     [@b.col width="10%" property="location" title="地点"/]
     [@b.col width="10%" property="capacity" title="最大容量"/]
     [@b.col width="10%" title="实际人数"][@b.a href="!tutoresStds?id=${tutorialActivity.id}"]${(tutorialActivity.stds.size)! }[/@][/@]
