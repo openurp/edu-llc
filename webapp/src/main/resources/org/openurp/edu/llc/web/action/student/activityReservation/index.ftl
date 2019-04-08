@@ -1,0 +1,22 @@
+[#ftl]
+[@b.head/]
+[#if chooseAvtivities?? && chooseAvtivities?size>0]
+  [@b.toolbar title="已选辅导活动"/]
+  [@b.grid items=chooseAvtivities?sort_by("date") var="cActivity" sortable="false"]
+    [@b.row]
+      [@b.col width="5%" title="序号"]${cActivity_index+1 }[/@]
+      [@b.col width="15%" property="date" title="日期"]${(cActivity.date?string('yyyy-MM-dd'))?default('')}[/@]
+      [@b.col width="20%" title="时间"]${cActivity.beginAt! }-${cActivity.endAt }[/@]
+      [@b.col width="15%" property="subject" title="活动名称（类别）"/]
+      [@b.col width="15%" property="teacher.user.name" title="辅导教师"/]
+      [@b.col width="15%" property="location" title="地点"/]
+      [@b.col width="15%" title="操作"][@b.a href="!unChoose?activity.id=${cActivity.id}"]取消预约[/@][/@]
+    [/@]
+  [/@]
+[/#if]
+
+[#if switches ?? && switches?size>0]
+<div class="container">预约辅导活动开放时间为${switch.beginAt}到${switch.endAt }.[@b.a class="btn btn-default" href="!activities" role="button"]预约[/@]</div>
+<div class="container">${switch.remark!}</div>
+[/#if]
+[@b.foot/]
