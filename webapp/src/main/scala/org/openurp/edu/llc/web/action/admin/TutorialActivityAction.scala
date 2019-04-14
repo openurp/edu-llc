@@ -31,8 +31,9 @@ import org.beangle.commons.collection.Order
 import org.openurp.edu.base.model.Project
 import org.openurp.edu.base.model.Semester
 import org.openurp.edu.base.model.Teacher
+import org.openurp.edu.boot.web.ProjectSupport
 
-class TutorialActivityAction extends RestfulAction[TutorialActivity] {
+class TutorialActivityAction extends RestfulAction[TutorialActivity] with ProjectSupport {
 
   override protected def indexSetting(): Unit = {
     put("projects", entityDao.getAll(classOf[Project]))
@@ -75,7 +76,7 @@ class TutorialActivityAction extends RestfulAction[TutorialActivity] {
   def teacher(): View = {
     val codeOrName = get("term").orNull
     val query = OqlBuilder.from(classOf[Teacher], "teacher")
-    query.where("teacher.project.id=:projectId", getInt("project").get)
+    query.where("teacher.project=:project", getProject())
     populateConditions(query);
 
     if (Strings.isNotEmpty(codeOrName)) {
