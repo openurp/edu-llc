@@ -95,8 +95,7 @@ class TutorialActivityAction extends RestfulAction[TutorialActivity] with Projec
   }
 
   override protected def saveAndRedirect(entity: TutorialActivity): View = {
-    val projectId = get("project").get.toInt
-    val project = entityDao.get(classOf[Project], projectId)
+    val project = getProject()
     entity.project = project
     val date = get[LocalDate]("tutorialActivity.date", classOf[LocalDate])
     val builder = OqlBuilder.from(classOf[Semester], "semester")
