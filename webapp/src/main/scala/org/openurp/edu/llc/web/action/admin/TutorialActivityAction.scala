@@ -116,22 +116,23 @@ class TutorialActivityAction extends RestfulAction[TutorialActivity] {
   def copy(): View = {
     val activityId = get("activityId").get.toLong
     val activity = entityDao.get(classOf[TutorialActivity], activityId)
-    val week = get("week").get.toInt
-    var i = 0
-    for (i <- 1 to week) {
-      val newActivity = new TutorialActivity
-      newActivity.project = activity.project
-      newActivity.semester = activity.semester
-      newActivity.teacher = activity.teacher
-      newActivity.subject = activity.subject
-      newActivity.location = activity.location
-      newActivity.capacity = activity.capacity
-      newActivity.beginAt = activity.beginAt
-      newActivity.endAt = activity.endAt
-      newActivity.date = activity.date.plusWeeks(i)
-      entityDao.saveOrUpdate(newActivity)
-    }
-    redirect("index", "复制成功")
+    get("week").foreach(week => {
+      var i = 0
+      for (i <- 1 to week.toInt) {
+        val newActivity = new TutorialActivity
+        newActivity.project = activity.project
+        newActivity.semester = activity.semester
+        newActivity.teacher = activity.teacher
+        newActivity.subject = activity.subject
+        newActivity.location = activity.location
+        newActivity.capacity = activity.capacity
+        newActivity.beginAt = activity.beginAt
+        newActivity.endAt = activity.endAt
+        newActivity.date = activity.date.plusWeeks(i)
+        entityDao.saveOrUpdate(newActivity)
+      }
+    })
+    redirect("index")
   }
 
 }
