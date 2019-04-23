@@ -34,8 +34,9 @@ import org.openurp.edu.base.model.Classroom
 import org.openurp.edu.base.model.Project
 import org.openurp.edu.base.model.Semester
 import org.openurp.edu.base.model.Teacher
+import org.openurp.edu.boot.web.ProjectSupport
 
-class LectureAction extends RestfulAction[Lecture] {
+class LectureAction extends RestfulAction[Lecture] with ProjectSupport {
 
   override protected def indexSetting(): Unit = {
     put("departments", entityDao.getAll(classOf[Department]))
@@ -97,7 +98,7 @@ class LectureAction extends RestfulAction[Lecture] {
   def teacher(): View = {
     val codeOrName = get("term").orNull
     val query = OqlBuilder.from(classOf[Teacher], "teacher")
-    query.where("teacher.project.id=:projectId", getInt("project").get)
+    query.where("teacher.project=:project", getProject())
     populateConditions(query);
 
     if (Strings.isNotEmpty(codeOrName)) {
@@ -116,9 +117,7 @@ class LectureAction extends RestfulAction[Lecture] {
   }
 
   override protected def saveAndRedirect(lecture: Lecture): View = {
-    val projectId = get("project").get.toInt
-    val project = entityDao.get(classOf[Project], projectId)
-    lecture.project = project
+    lecture.project = getProject()
     val date = get[LocalDate]("lecture.date", classOf[LocalDate])
     val builder = OqlBuilder.from(classOf[Semester], "semester")
     builder.where("semester.beginOn <= :date and semester.endOn >= :date", date.get)

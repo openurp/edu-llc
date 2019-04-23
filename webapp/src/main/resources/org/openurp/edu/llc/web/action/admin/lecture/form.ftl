@@ -46,19 +46,19 @@
     {width:"400px"}
   );
   jQuery("#teacherId").ajaxChosen(
-	        {
-	            method: 'GET',
-	            url:  "${b.url('!teacher?pageNo=1&pageSize=10')}"
-	        }
-	        , function (data) {
-	            var items = {};
-	            var dataObj = eval("(" + data + ")");
-	            jQuery.each(dataObj.teachers, function (i, teacher) {
-	                items[teacher.id] = teacher.name + "(" + teacher.code + ")";
-	            });
-	            return items;
-	        },
-	        {width:"400px"}
-	      );
+          {
+              method: 'GET',
+              url:  "${b.url('!teacher?pageNo=1&pageSize=10')}"
+          }
+          , function (data) {
+              var items = {};
+              var dataObj = eval("(" + data + ")");
+              jQuery.each(dataObj.teachers, function (i, teacher) {
+                  items[teacher.id] = teacher.name + "(" + teacher.code + ")";
+              });
+              return items;
+          },
+          {width:"400px"}
+        );
 </script>
 [@b.foot/]
