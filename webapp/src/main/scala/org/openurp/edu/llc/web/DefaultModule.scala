@@ -27,14 +27,19 @@ import org.openurp.edu.llc.web.action.student.ActivityReservationAction
 import org.openurp.edu.llc.web.action.student.LectureReservationAction
 import org.openurp.edu.llc.web.action.teacher.TeacherLectureAction
 import org.openurp.edu.llc.web.action.teacher.TeacherTutorialAction
+import org.openurp.edu.llc.model.Intro
+import org.openurp.edu.llc.web.action.admin.IntroAction
+import org.openurp.edu.llc.web.action.IntroductionAction
 
 class DefaultModule extends BindModule {
 
   protected override def binding() {
-    bind(classOf[LectureAction],classOf[TutorialActivityAction],classOf[TutorialSwitchAction],classOf[TutoredStdAction])
+    bind(classOf[LectureAction], classOf[TutorialActivityAction], classOf[TutorialSwitchAction], classOf[TutoredStdAction], classOf[IntroAction])
 
-    bind(classOf[LectureReservationAction],classOf[ActivityReservationAction])
+    bind(classOf[LectureReservationAction], classOf[ActivityReservationAction])
 
-    bind(classOf[TeacherLectureAction],classOf[TeacherTutorialAction])
+    bind(classOf[TeacherLectureAction], classOf[TeacherTutorialAction])
+    
+    bind(classOf[IntroductionAction])
   }
 }

@@ -135,4 +135,28 @@ class LectureAction extends RestfulAction[Lecture] with ProjectSupport {
     forward()
   }
 
+  def copy(): View = {
+    val lectureId = get("lectureId").get.toLong
+    val lecture = entityDao.get(classOf[Lecture], lectureId)
+    get("week").foreach(week => {
+      var i = 0
+      for (i <- 1 to week.toInt) {
+        val newLecture = new Lecture
+        newLecture.project = lecture.project
+        newLecture.semester = lecture.semester
+        newLecture.teacher = lecture.teacher
+        newLecture.subject = lecture.subject
+        newLecture.depart = lecture.depart
+        newLecture.room = lecture.room
+        newLecture.location = lecture.location
+        newLecture.capacity = lecture.capacity
+        newLecture.beginAt = lecture.beginAt
+        newLecture.endAt = lecture.endAt
+        newLecture.date = lecture.date.plusWeeks(i)
+        entityDao.saveOrUpdate(newLecture)
+      }
+    })
+    redirect("index")
+  }
+
 }
