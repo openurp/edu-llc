@@ -39,7 +39,7 @@ class DefaultModule extends BindModule {
     bind(classOf[LectureReservationAction], classOf[ActivityReservationAction])
 
     bind(classOf[TeacherLectureAction], classOf[TeacherTutorialAction])
-    
+
     bind(classOf[IntroductionAction])
   }
 }

@@ -68,7 +68,6 @@ class TeacherLectureAction extends RestfulAction[Lecture] {
     builder.orderBy(get(Order.OrderStr).orNull).limit(getPageLimit)
   }
 
-
   def audiences(): View = {
     val lectureId = longId("lecture")
     val lecture = entityDao.get(classOf[Lecture], lectureId)
